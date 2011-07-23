@@ -295,7 +295,7 @@ exports.hidden = function (options) {
 
 exports.textarea = function (_options) {
     var w = new Widget('textarea', _options || {});
-    w.options = _options;
+    w.options = _options || {};
     w.toHTML = function (name, value, raw, field, options) {
         if (raw === undefined) {
             raw = (value === undefined) ? '': '' + value;
