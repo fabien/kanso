@@ -692,6 +692,23 @@ exports.createdTime = function (options) {
     }));
 };
 
+/**
+ * Creates a modifiedTime timestamp Field
+ *
+ * @name modifiedTime([options])
+ * @param {Object} options
+ * @api public
+ */
+
+exports.modifiedTime = function (options) {
+    options = options || {};
+    return exports.number(_.defaults(options, {
+        widget: widgets.computed(),
+        value: function () {
+            return new Date().getTime();
+        }
+    }));
+};
 
 /**
  * Creates a choice Field

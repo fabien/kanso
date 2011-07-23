@@ -391,6 +391,11 @@ exports.select = function (_options) {
 exports.computed = function (_options) {
     var w = new Widget('computed', _options);
     w.toHTML = function (name, value, raw, field, options) {
+        if (_.isFunction(field.value)) {
+            raw = field.value(raw);
+        } else if (field.value !== undefined) {
+            raw = '' + field.value;
+        }
         if (raw === undefined) {
             raw = (value === undefined) ? '': '' + value;
         }
