@@ -391,6 +391,7 @@ exports.select = function (_options) {
 exports.computed = function (_options) {
     var w = new Widget('computed', _options);
     w.toHTML = function (name, value, raw, field, options) {
+        var formatted = raw;
         if (_.isFunction(field.value)) {
             raw = field.value(raw);
         } else if (field.value !== undefined) {
@@ -402,11 +403,16 @@ exports.computed = function (_options) {
         if (raw === null || raw === undefined) {
             raw = '';
         }
+        if (_.isFunction(field.format)) {
+            formatted = field.format(raw);
+        } else {
+            formatted = raw;
+        }
         var html = '<div id="';
         html += this._id(name, options.offset, options.path_extra) + '">';
         html += '<input type="hidden" value="' + h(raw) + '"';
         html += ' name="' + this._name(name, options.offset) + '" />';
-        html += '<span>' + h(raw) + '</span>';
+        html += '<span>' + h(formatted) + '</span>';
         html += '</div>';
         return html;
     };
